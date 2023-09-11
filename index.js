@@ -35,7 +35,7 @@ async function run() {
       expiresIn: '1h'
      
     })
-    res.send(token)
+    res.send({token})
   })
    
    
