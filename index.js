@@ -22,7 +22,7 @@ const client = new MongoClient(uri, {
 
 const verifyJWT = (req, res, next) => {
     const authorization = req.headers.authorization
-    if(authorization) {
+    if(!authorization) {
       return res.status(401).send({error: true, message: 'Unauthorized m access'})
     }
     const token = authorization.split(' ')[1]
