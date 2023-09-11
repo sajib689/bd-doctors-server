@@ -100,6 +100,19 @@ async function run() {
         const result = await bddoctorsCollection.updateOne(filter,updatedService,options)
         res.send(result)
       })
+      // appointment status update
+      app.patch('/appointment/:id', async(req, res) => {
+        const id = req.params.id
+        const filter = {_id: new ObjectId(id)}
+        const updated = req.body
+        const updateStatus = {
+          $set: {
+            status: updated.status
+          }
+        }
+        const result = await appointmentsCollection.updateOne(filter, updateStatus)
+        result.send(result)
+      })
     // Send a ping to confirm a successful connection
      client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
