@@ -80,6 +80,9 @@ async function run() {
     // get appiontment data from database
     app.get('/appointment',verifyJWT, async(req, res) => {
       const decoded = req.decoded
+      if(decoded.email !== req.query.email) {
+        return res.status(403).send({error: true, message: 'forbidden access token'})
+      }
       let query = {}
       if(req.query?.email) {
         query = {email: req.query.email}
