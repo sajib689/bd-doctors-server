@@ -21,19 +21,26 @@ const client = new MongoClient(uri, {
 });
 
 const verifyJWT = (req, res, next) => {
-    const authorization = req.headers.authorization
-    if(!authorization) {
-      return res.status(401).send({error: true, message: 'Unauthorized access'})
-    }
-    const token = authorization.split(' ')[1]
-    jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
-      if(error) {
-       return res.status(401).send({error: true, message:'Unauthorized access'})
+  const authorization = req.headers.authorization;
+
+  if (!authorization) {
+      return res.status(401).send({ error: true, message: 'Unauthorized access' });
+  }
+
+  const token = authorization.split(' ')[1];
+
+  if (!token) {
+      return res.status(401).send({ error: true, message: 'Token not provided' });
+  }
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
+      if (error) {
+          return res.status(401).send({ error: true, message: 'Unauthorized access' });
       }
-      req.decoded = decoded
-      next()
-    })
-}
+      req.decoded = decoded;
+      next();
+  });
+};
 
 async function run() {
   try {
