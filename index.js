@@ -34,10 +34,10 @@ async function run() {
     app.get('/services/:id', async(req, res) => {
         const id = req.params.id;
         const query = {_id: new ObjectId(id)}
-        const options = {
-            projection: {_id: 1, name: 1, img: 1}
-        }
-        const result = await bddoctorsCollection.findOne(query,options);
+        // const options = {
+        //     projection: {_id: 1, name: 1, img: 1}
+        // }
+        const result = await bddoctorsCollection.findOne(query);
         res.send(result);
     })
     // post appointment data to server
@@ -75,6 +75,26 @@ async function run() {
       const result = await bddoctorsCollection.deleteOne(query)
       res.send(result);
     })
+    	// update service data from database
+      app.put('/services/:id', async(req, res) => {
+        const id = req.params.id
+        const filter = {_id: new ObjectId(id)}
+        const update = req.body 
+        const options = {upsert: true}
+        const updatedService = {
+          $set: {
+           name: update.name,
+           title: update.title,
+           college: update.college,
+           visting: update.visting,
+           call: update.call,
+           img: update.img,
+           job: update.job,
+          }
+        }
+        const result = await bddoctorsCollection.updateOne(filter,updatedService,options)
+        res.send(result)
+      })
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
