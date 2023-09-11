@@ -101,12 +101,12 @@ async function run() {
         res.send(result)
       })
       // 
-      app.get('/appointment/:id', async(req, res) => {
-        const id = req.params.id
-        const query = {_id: new ObjectId(id)}
-        const result = await bddoctorsCollection.findOne(query)
-        res.send(result)
-      })
+      // app.get('/appointment/:id', async(req, res) => {
+      //   const id = req.params.id
+      //   const query = {_id: new ObjectId(id)}
+      //   const result = await bddoctorsCollection.findOne(query)
+      //   res.send(result)
+      // })
       // appointment status update
       app.patch('/appointment/:id', async(req, res) => {
         const id = req.params.id
