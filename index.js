@@ -23,7 +23,7 @@ const client = new MongoClient(uri, {
 const verifyJWT = (req, res, next) => {
     const authorization = req.headers.authorization
     if(!authorization) {
-      return res.status(401).send({error: true, message: 'Unauthorized access'})
+      return res.status(401).send({error: true, message: 'Unauthorized m access'})
     }
     const token = authorization.split(' ')[1]
     jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
@@ -79,7 +79,7 @@ async function run() {
     // get appiontment data from database
     app.get('/appointment',verifyJWT, async(req, res) => {
       const decoded = req.decoded
-      if(decoded.email !== req.query?.email) {
+      if(decoded.email !== req.query.email) {
         return res.status(403).send({error: true, message: 'forbidden access token'})
       }
       let query = {}
