@@ -77,12 +77,12 @@ async function run() {
       res.send(result)
     });
     // get appiontment data from database
-    app.get('/appointment',verifyJWT, async(req, res) => {
-      const decoded = req.decoded
-      console.log(req.headers.authorization)
-      if(decoded.email !== req.query.email) {
-        return res.status(403).send({error: true, message: 'forbidden access token'})
-      }
+    app.get('/appointment', async(req, res) => {
+      // const decoded = req.decoded
+      // console.log(req.headers.authorization)
+      // if(decoded.email !== req.query.email) {
+      //   return res.status(403).send({error: true, message: 'forbidden access token'})
+      // }
       let query = {}
       if(req.query?.email) {
         query = {email: req.query.email}
