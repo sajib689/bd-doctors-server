@@ -90,10 +90,10 @@ async function run() {
       res.send(result)
     })
     // get all appointment data from database
-    // app.get('/appointment', async(req, res) => {
-    //   const result = await appointmentsCollection.find().toArray()
-    //   res.send(result)
-    // })
+    app.get('/appointment', async(req, res) => {
+      const result = await appointmentsCollection.find().toArray()
+      res.send(result)
+    })
     // delete appointment from database
     app.delete('/appointment/:id', async(req, res) => {
       const id = req.params.id;
